@@ -1,0 +1,24 @@
+- name: Install redis-server
+  apt: pkg={{ item }}={{ redis.version }} state=installed update-cache=yes
+  register: redis_install
+  with_items:
+    - redis-server
+  tags:
+    - apt
+
+- name: Disable obsolete init.d service
+  service: name=redis-server enabled=no state=stopped
+  when: redis_install.changed
+
+- name: generate upstart script
+  template: src=upstart.conf.j2 dest=/etc/init/redis-server.conf
+  notify:
+    - restart redis
+
+- name: Create data directory
+  file: state=directory path={{ redis.config.dir }} owner={{ redis.user }} group={{ redis.group }} recurse=yes
+
+- name: Install config
+  template: src=redis.conf.j2 dest={{ redis.config_path }}
+  notify:
+    - restart redis

@@ -1,0 +1,2 @@
+[redis_nodes]
+10.2.2.22 ansible_ssh_user=vagrant sudo=true sudo_user=vagrant

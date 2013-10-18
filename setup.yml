@@ -1,0 +1,7 @@
+---
+- name: 'Redis Playbook'
+  hosts: redis_nodes
+  user: root
+
+  roles:
+    - redis

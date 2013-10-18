@@ -1,0 +1,10 @@
+---
+- name: Install python-software-properties
+  apt: pkg=python-software-properties state=installed update-cache=yes
+  tags:
+    - apt
+
+- name: Add chris-lea PPA
+  apt_repository: repo=ppa:chris-lea/redis-server
+  tags:
+    - apt
