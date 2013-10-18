@@ -12,6 +12,14 @@ redis:
     loglevel: notice
     logfile: /var/log/redis/redis-server.log
 
+    databases: 16
+
+    maxmemory: 32mb
+    maxmemory_policy: volatile-lru
+
+    appendonly: "no"
+    appendfsync: everysec
+
     dir: /var/lib/redis
     save:
       - 900 1
